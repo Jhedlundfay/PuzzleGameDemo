@@ -14,9 +14,11 @@ public class Player : MonoBehaviour
     public GameObject gameOverOverlay;
     public Text enemiesDefeated;
     private EnemyManager enemyManager;
+    private Board board;
     // Start is called before the first frame update
     void Start()
     {
+        board = FindObjectOfType<Board>();
         enemyManager = FindObjectOfType<EnemyManager>();
         bar = this.gameObject.transform.GetChild(0).GetChild(2);
         border = this.gameObject.transform.GetChild(0).GetChild(1).GetComponent<SpriteRenderer>();
@@ -31,6 +33,7 @@ public class Player : MonoBehaviour
         bar.localScale = scale;
         if (scale.x == 0f)
         {
+            board.currentState = GameState.GameOver;
             enemiesDefeated.text = "Enemies Defeated: " + enemyManager.enemiesDefeated;
             gameOverOverlay.SetActive(true);
         }

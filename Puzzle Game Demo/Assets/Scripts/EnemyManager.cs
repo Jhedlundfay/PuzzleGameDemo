@@ -8,7 +8,6 @@ public class EnemyManager : MonoBehaviour
     private Board board;
     public int width;
     public int height;
-    public float rarityMultiplier;
     public int movesPerTurn;
     public int remainingMoves;
     public GameObject[] allEnemies;
@@ -36,15 +35,17 @@ public class EnemyManager : MonoBehaviour
         float sumRarities = 0.0f;
         for (int j = 0; j < enemies.Length; j++)
         {
-            sumRarities += enemies[j].enemyRarity * rarityMultiplier;
+            sumRarities += enemies[j].enemyRarity;
         }
+        Debug.Log(sumRarities);
         for (int j = 0; j < enemies.Length; j++)
         {
             normalizedRarities[j] = enemies[j].enemyRarity / sumRarities;
-            for (int k = 0; k < j; k++)
+            if (j > 0)
             {
-                normalizedRarities[j] += normalizedRarities[k];
+                normalizedRarities[j] += normalizedRarities[j - 1];
             }
+            Debug.Log(normalizedRarities[j]);
         }
         SetUp();
         allIndicators[0].gameObject.GetComponent<SpriteRenderer>().enabled = true;

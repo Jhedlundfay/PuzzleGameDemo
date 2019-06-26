@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public enum GameState
 {
-    PlayerWait, PlayerMove, Enemy
+    PlayerWait, PlayerMove, Enemy, GameOver
 }
 
 public class Board : MonoBehaviour
@@ -265,7 +265,7 @@ public class Board : MonoBehaviour
     public IEnumerator MultiplyWounds(float value, float time)
     {
         multiplyWounds.enabled = true;
-        float alpha = multiplyWounds.color.a;
+        float alpha = 0f;
         for (float t = 0.0f; t <= 1.0f; t += Time.deltaTime / time)
         {
             if (t <= 0.5f)
@@ -290,5 +290,6 @@ public class Board : MonoBehaviour
     {
         soundManager.PlaySound("Ice_Shatter");
         timeFreeze.enabled = false;
+        timeFreeze.color = new Color(1f, 1f, 1f, 0f);
     }
 }
